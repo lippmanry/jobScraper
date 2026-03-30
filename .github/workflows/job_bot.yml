@@ -3,7 +3,7 @@ name: Daily Job Search
 on:
   schedule:
 	#run at 7 AM
-    - cron: '0 7 * * *'
+    - cron: "0 7 * * *" 
   workflow_dispatch: #manual run
 
 jobs:
