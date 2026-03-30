@@ -28,5 +28,5 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           DISCORD_USER_ryan: ${{ secrets.DISCORD_USER_RYAN }}
           DISCORD_USER_mik: ${{ secrets.DISCORD_USER_MIK }}
-          RAPID_API_KEY: ${{ secrets.ATS_API_KEY }}
+          ATS_API_KEY: ${{ secrets.ATS_API_KEY }}
         run: python main.py
