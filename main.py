@@ -43,11 +43,11 @@ def run_automation():
                             user_id=profile['user_id'],
                             color=profile['color']
                             )
-                print(f'Success! Sent jobs for {profile['name']}.')
+                print(f"Success! Sent jobs for {profile['name']}.")
             else:
-                print(f'No new jobs for {profile['query']}.')
+                print(f"No new jobs for {profile['query']}.")
         except Exception as e:
-            print(f'Error processing job for {profile['name']}.')
+            print(f"Error processing job for {profile['name']}.")
         time.sleep(2)
 if __name__ == "__main__":
     run_automation()

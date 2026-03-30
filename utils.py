@@ -53,18 +53,18 @@ def date_handler(posted_date):
         if total_seconds < 3600:
             #less than 1 hr
             minutes = int(total_seconds // 60)
-            time_since = f'{minutes} min ago'
+            time_since = f"{minutes} min ago"
         elif total_seconds < 86400:
             #less than 1 day
             hours = int(total_seconds // 3600)
-            time_since = f'{hours} hours ago'
+            time_since = f"{hours} hours ago"
         else:
             #more than 1 day
-            time_since = f'{delta.days} days ago'
+            time_since = f"{delta.days} days ago"
         
 
     except Exception as e:
-        print(f'Error with date: {e}')
+        print(f"Error with date: {e}")
         return 'Unknown', float('inf')
 
     return time_since        
@@ -285,7 +285,7 @@ def fetch_jobs(api_key=api_key, host=host,
     while current_page <= total_pages:
         #stop at user-defined limit:
         if current_page > max_pages_limit:
-            print(f'Max pages limit was reached. Limit set at {max_pages_limit}.')
+            print(f"Max pages limit was reached. Limit set at {max_pages_limit}.")
             break
         
         #params
@@ -298,18 +298,10 @@ def fetch_jobs(api_key=api_key, host=host,
             'remote': remote
         }
         params.update(kwargs)
-
-        # clean_params = {k: str(v).strip() for k, v in params.items() if v is not None and v != ""}
         
         clean_params = {k: v for k, v in params.items() if v is not None and v != ""}
         
         try:
-            # test_res = requests.Request('GET', base_url, params=clean_params, headers=headers)
-            # test_prep = test_res.prepare()
-            # print (f'Testing url: {test_prep.url}')
-            # print(f"--- Debugging Request ---")
-            # print(f"URL: {base_url}")
-            # print(f"Parameters being sent: {clean_params}")
 
             response = requests.get(base_url, params=clean_params, headers=headers, timeout=10)
             #check response
@@ -325,7 +317,7 @@ def fetch_jobs(api_key=api_key, host=host,
                     total_count = data.get('total', 0)
                     total_pages = math.ceil(total_count / results_per_page)
                     actual_to_fetch = min(total_pages, max_pages_limit)
-                    print(f'{total_count} jobs found on {total_pages} pages. Fetching {actual_to_fetch} pages based on user input limit.')
+                    print(f"{total_count} jobs found on {total_pages} pages. Fetching {actual_to_fetch} pages based on user input limit.")
                 
                 page_items = []
                 for job in results:
@@ -384,11 +376,11 @@ def fetch_jobs(api_key=api_key, host=host,
                 continue
             #something is messed up
             else:
-                print(f'Error response status {response.status_code}: {response.text}')
+                print(f"Error response status {response.status_code}: {response.text}")
                 break
         #oh nooooo what happened??
         except Exception as e:
-            print(f'An error has occurred: {e}')
+            print(f"An error has occurred: {e}")
             break
         
     return job_list
