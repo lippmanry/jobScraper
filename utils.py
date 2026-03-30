@@ -149,7 +149,7 @@ def fix_pay(html_desc, country_input):
     soup = BeautifulSoup(html_desc, 'html.parser')
     text_content = soup.get_text(separator=' ')
     #match all numbers in the ranges
-    pattern = re.findall(r'\$\s*([\d,.]+)\s*([Kk]?)', text_content)
+    pattern = re.findall(r'[$\u00A3\u20AC]?\s*([\d,]{2,}\d)\s*([Kk]?)', text_content)
     
     all_values = [parse_val(n, k) for n, k in pattern]
     all_values = [v for v in all_values if 30000 < v < 1000000]
@@ -328,18 +328,24 @@ def fetch_jobs(api_key=api_key, host=host,
                     created_str = job.get('date_posted')
                     time_since = date_handler(created_str)
                     
-                    comp = job.get('compensation') or {}
-                    min_v = comp.get('min')
-                    max_v = comp.get('max')
-                    currency = comp.get('currency')
+                    #handle currency issues and API values
+                    target_currency = get_currency(country)
+                    pay = fix_pay(job.get('description'), country)
                     
-                    if not min_v or not max_v:
-                        pay = fix_pay(job.get('description'), country)
-                        if pay:
-                            
-                            min_v = pay.get('min')
-                            max_v = pay.get('max')
-                            currency = pay.get('currency')
+                    if pay:
+                        min_v = pay.get('min')
+                        max_v = pay.get('max')
+                        currency = target_currency
+                    else:
+                        comp = job.get('compensation') or {}
+                        min_v = comp.get('min')
+                        max_v = comp.get('max')
+
+                    api_currency = comp.get('currency', 'USD').upper()
+                    if api_currency == 'USD' and target_currency != 'USD':
+                        currency = target_currency
+                    else:
+                        currency = api_currency
 
                     salary_range = compensation_handler(min_v, max_v, currency)
                     salary_range_usd = compensation_handler(min_v, max_v, currency, is_usd=True)
