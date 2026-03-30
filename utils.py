@@ -147,9 +147,9 @@ def fix_pay(html_desc, country_input):
     
     #make soups
     soup = BeautifulSoup(html_desc, 'html.parser')
-    text_content = soup.get_text(separator=' ')
+    text_content = soup.get_text(separator=' ', strip=True)
     #match all numbers in the ranges
-    pattern = re.findall(r'[$\u00A3\u20AC]?\s*([\d,]{2,}\d)\s*([Kk]?)', text_content)
+    pattern = re.findall(r'[£$€\u00A3\u20AC]?\s*([\d,]{2,}\d)\s*([Kk]?)', text_content)
     
     all_values = [parse_val(n, k) for n, k in pattern]
     all_values = [v for v in all_values if 30000 < v < 1000000]
