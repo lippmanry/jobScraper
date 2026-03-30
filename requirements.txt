@@ -1,6 +1,7 @@
-requests
-python-dotenv
 hdx-python-country
 hdx-python-utilities
+hdx-python-api
+requests
+python-dotenv
 beautifulsoup4
 python-dateutil
