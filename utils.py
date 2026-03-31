@@ -330,14 +330,14 @@ def fetch_jobs(api_key=api_key, host=host,
                     
                     #handle currency issues and API values
                     target_currency = get_currency(country)
+                    comp = job.get('compensation') or {}
                     pay = fix_pay(job.get('description'), country)
                     
                     if pay:
                         min_v = pay.get('min')
                         max_v = pay.get('max')
-                        currency = target_currency
                     else:
-                        comp = job.get('compensation') or {}
+
                         min_v = comp.get('min')
                         max_v = comp.get('max')
 
