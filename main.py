@@ -15,7 +15,7 @@ SEARCH_PROFILES = [
     },
     {
         "name": "Mik",
-        "query": "Front End Developer",
+        "query": "FrontEnd",
         "user_id": os.getenv('DISCORD_USER_mik'), 
         "color": 11094015, 
         "country": "UK"
