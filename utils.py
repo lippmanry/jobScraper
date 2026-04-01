@@ -341,7 +341,8 @@ def fetch_jobs(api_key=api_key, host=host,
                         min_v = comp.get('min')
                         max_v = comp.get('max')
 
-                    api_currency = comp.get('currency', 'USD').upper()
+                    currency_val = comp.get('currency')
+                    api_currency = currency_val.upper() if isinstance(currency_val, str) else 'USD'
                     if api_currency == 'USD' and target_currency != 'USD':
                         currency = target_currency
                     else:
