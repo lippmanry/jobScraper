@@ -1,32 +1,32 @@
-name: Daily Job Search
+# name: Daily Job Search
 
-on:
-  schedule:
-    - cron: "0 5 * * *" 
-  workflow_dispatch: 
+# on:
+#   schedule:
+#     - cron: "0 5 * * *" 
+#   workflow_dispatch: 
 
-jobs:
-  run-search:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+# jobs:
+#   run-search:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+#       - name: Set up Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
 
-      - name: Run Job Script
-        env:
-          #secrets
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          DISCORD_USER_ryan: ${{ secrets.DISCORD_USER_RYAN }}
-          DISCORD_USER_mik: ${{ secrets.DISCORD_USER_MIK }}
-          ATS_API_KEY: ${{ secrets.ATS_API_KEY }}
-        run: python main.py
+#       - name: Run Job Script
+#         env:
+#           #secrets
+#           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#           DISCORD_USER_ryan: ${{ secrets.DISCORD_USER_RYAN }}
+#           DISCORD_USER_mik: ${{ secrets.DISCORD_USER_MIK }}
+#           ATS_API_KEY: ${{ secrets.ATS_API_KEY }}
+#         run: python main.py
